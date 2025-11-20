@@ -1,0 +1,198 @@
+.advanced-features {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 25px;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.dark .advanced-features {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.advanced-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.advanced-header h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.dark .advanced-header h3 {
+  color: white;
+}
+
+.advanced-header p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.dark .advanced-header p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.extraction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.extraction-card {
+  position: relative;
+  padding: 20px 15px;
+  background: #f9f9f9;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  overflow: hidden;
+}
+
+.dark .extraction-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.extraction-card:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.extraction-card.active {
+  border-color: #667eea;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.dark .extraction-card.active {
+  background: rgba(102, 126, 234, 0.15);
+}
+
+.extraction-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.extraction-card h4 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.dark .extraction-card h4 {
+  color: white;
+}
+
+.extraction-card p {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+}
+
+.dark .extraction-card p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.trim-controls {
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.dark .trim-controls {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.trim-controls h4 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.dark .trim-controls h4 {
+  color: white;
+}
+
+.trim-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.trim-slider input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.trim-slider input[type="range"]:hover {
+  opacity: 1;
+}
+
+.trim-slider input[type="range"]::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.trim-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.dark .trim-info {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .extraction-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .extraction-card {
+    padding: 15px 10px;
+  }
+
+  .extraction-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}

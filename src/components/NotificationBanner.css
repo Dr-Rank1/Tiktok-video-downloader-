@@ -1,0 +1,99 @@
+.notification-banner {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  color: white;
+}
+
+.banner-icon {
+  font-size: 1.5rem;
+  animation: ring 2s ease-in-out infinite;
+}
+
+@keyframes ring {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(-15deg);
+  }
+  20%, 40% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+}
+
+.banner-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.banner-text strong {
+  font-size: 1rem;
+}
+
+.banner-text span {
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.banner-dismiss {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.banner-dismiss:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .notification-banner {
+    top: 10px;
+    width: 95%;
+  }
+
+  .banner-content {
+    padding: 12px 15px;
+  }
+
+  .banner-text {
+    font-size: 0.85rem;
+  }
+
+  .banner-text strong {
+    font-size: 0.9rem;
+  }
+
+  .banner-text span {
+    font-size: 0.8rem;
+  }
+}
