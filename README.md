@@ -1,195 +1,141 @@
-# TikTok Video Downloader Pro 🚀
+# TikTok Video Downloader Pro
 
-A professional, feature-rich React application for downloading TikTok videos without watermarks. Built with modern technologies and best practices.
+A modern, full‑featured React + Node app to download TikTok videos — with or without watermark — using a FREE backend (tikwm.com) or RapidAPI. Includes batch downloads, history, stats, themes, and a polished UX.
 
-## ✨ Features
 
-### Core Features
-- 🎵 **No Watermark Downloads** - Download videos without TikTok watermark
-- 🎬 **HD Quality Support** - Get videos in the highest quality available
-- ⚡ **Lightning Fast** - Optimized performance with instant processing
-- 📱 **Fully Responsive** - Perfect experience on all devices
+## Highlights
+- No‑watermark and HD downloads (when available)
+- Free backend out of the box (no API key required)
+- Optional RapidAPI integration
+- Batch downloads, history, favorites, and stats
+- Responsive UI with dark/light theme and keyboard shortcuts
+- Friendly error handling and demo mode for quick testing
 
-### Advanced Features
-- 📦 **Batch Downloads** - Download multiple videos at once
-- 📚 **Download History** - Keep track of all your downloads
-- ❤️ **Favorites System** - Save your favorite videos
-- 📊 **Statistics Dashboard** - View your download analytics
-- 🎨 **Dark/Light Theme** - Choose your preferred theme
-- ⚙️ **Customizable Settings** - Configure quality, auto-download, and more
 
-### UI/UX Features
-- 🎭 **Beautiful Animations** - Smooth transitions with Framer Motion
-- 🎨 **Modern Design** - Gradient backgrounds and glassmorphism effects
-- 🌈 **Interactive Elements** - Hover effects and micro-interactions
-- 📋 **One-Click Paste** - Quick clipboard integration
-- 🔔 **Toast Notifications** - Real-time feedback for all actions
+## Architecture
+- Frontend: React 18 (Create React App), Zustand store, Framer Motion, React Hot Toast
+- Backend: Express + Axios proxy to tikwm.com
+- Local Dev: Client on port 3000, Server on port 5000 (CRA proxy enabled)
 
-## 🚀 Quick Start
 
-### Prerequisites
+## Prerequisites
+- Node.js 16+ (18+ recommended)
+- npm (or yarn)
 
-- Node.js (v14 or higher)
-- npm or yarn
 
-### Installation
+## Quick Start
+1) Install dependencies
 
-1. **Clone or download the project**
-
-2. **Install dependencies:**
 ```bash
 npm install
 ```
 
-3. **Set up environment variables:**
+2) Start everything (client + server)
+
 ```bash
-cp .env.example .env
+npm run dev
 ```
-Edit `.env` and add your API keys if using external services.
+- Client: http://localhost:3000
+- API:    http://localhost:5000
 
-4. **Start the development server:**
+Alternatively, run separately:
+
 ```bash
-npm start
+npm start         # React dev server
+npm run server    # Express backend
 ```
 
-The app will open at [http://localhost:3000](http://localhost:3000)
 
-5. **Optional: Start the backend server:**
-```bash
-npm run server
-```
+## Environment Variables
+Create a .env (copy from .env.example) to configure optional values.
 
-Backend will run on [http://localhost:5000](http://localhost:5000)
+Frontend (React):
+- REACT_APP_API_URL: Override backend base URL. Defaults to http://localhost:5000/api
+- REACT_APP_RAPIDAPI_KEY: If set, the app will prefer RapidAPI for video info.
 
-## 🎯 Demo Mode
+Backend:
+- PORT: Defaults to 5000
 
-The app runs in **demo mode** by default, allowing you to test all features without API configuration:
-- ✅ Full UI functionality
-- ✅ All interactions work
-- ✅ Download history and stats
-- ✅ Favorites system
-- ⚠️ Actual video downloads require API setup
+Note: You generally don’t need any API keys to use the built‑in FREE backend.
 
-## Usage
 
-1. Open TikTok app or website
-2. Find the video you want to download
-3. Click the "Share" button
-4. Copy the link
-5. Paste it into the input field
-6. Click "Download Video"
-7. Wait for processing
-8. Download the video without watermark
+## Using the App
+1) Copy a TikTok share link
+2) Paste it into the input field
+3) Click Download
+4) Choose No Watermark or HD when available
 
-## API Options
+Batch downloads: paste multiple links (one per line) into the Batch tab, then start.
 
-This application requires a backend API to fetch TikTok videos. Here are some options:
 
-### Option 1: RapidAPI (Recommended for beginners)
-- Easy to set up
-- Free tier available
-- Multiple TikTok downloader APIs available
-- Example services: "TikTok Download Without Watermark", "TikTok Downloader"
+## API Endpoints (Backend)
+Base: http://localhost:5000
 
-### Option 2: Build Your Own Backend
-Create a Node.js/Express backend that:
-- Receives TikTok URLs from the frontend
-- Uses libraries like `tiktok-scraper` or similar
-- Returns video data and download links
-- Handles CORS properly
+- POST /api/video-info
+  - Body: { url: string }
+  - Returns: normalized video metadata and download URLs
+  - Notes: Uses tikwm.com behind the scenes
 
-Example backend structure:
-```javascript
-// server.js (example)
-const express = require('express');
-const cors = require('cors');
-// Add your TikTok scraping logic here
+- POST /api/batch-download
+  - Body: { urls: string[] }
+  - Returns: list of results per URL with either data or error
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+- GET /api/health
+  - Returns simple health status
 
-app.post('/api/download', async (req, res) => {
-  const { url } = req.body;
-  // Scraping logic here
-  res.json({ downloadUrl, thumbnail, author, title });
-});
 
-app.listen(5000);
-```
+## How Downloads Work
+The backend maps TikWM fields as follows:
+- play → No watermark
+- wmplay → With watermark
+- hdplay → HD (no watermark) when available
 
-### Option 3: Serverless Functions
-Deploy the scraping logic as:
-- Vercel Functions
-- Netlify Functions
-- AWS Lambda
-- Google Cloud Functions
+Client buttons use these fields to provide the correct link.
 
-## Important Notes
 
-⚠️ **Legal and Ethical Considerations:**
-- This tool is for personal use only
-- Always respect content creators' rights
-- Do not use downloaded content for commercial purposes without permission
-- Some content may be protected by copyright
-- Follow TikTok's Terms of Service
-- Credit original creators when sharing downloaded content
+## Demo Mode
+If the backend is not reachable, the app falls back to a safe demo mode. You can explore the UI and flows without any API keys. Real downloads require the backend to be running or a valid RapidAPI key.
 
-⚠️ **Technical Considerations:**
-- TikTok may update their API, which could break functionality
-- Rate limiting may apply depending on your API service
-- Some videos may be restricted from download by the creator
-- Consider implementing caching to reduce API calls
 
-## Build for Production
+## Troubleshooting
+- npm run dev fails
+  - Ensure dev dependency "concurrently" is installed (it is in this repo) and run `npm install` first.
 
+- CORS or network errors
+  - Start the backend (`npm run server`). CRA proxy is already configured in package.json.
+  - If hosting frontend separately, set REACT_APP_API_URL to the backend URL.
+
+- No Watermark returns the wrong file
+  - Fixed: server maps tikwm fields correctly (play = no watermark; wmplay = watermark; hdplay = HD).
+
+- RapidAPI errors
+  - Verify REACT_APP_RAPIDAPI_KEY and plan limits; otherwise rely on the free backend.
+
+
+## Production Build
 ```bash
 npm run build
 ```
+Outputs optimized assets to the build/ directory. Deploy to Vercel, Netlify, static hosts, or any SPA‑friendly hosting.
 
-This creates an optimized production build in the `build` folder.
+See DEPLOYMENT.md for step‑by‑step guides (Vercel/Netlify, service worker, caching, and common pitfalls).
 
-## Deployment
 
-You can deploy this app to:
-- Vercel (recommended)
-- Netlify
-- GitHub Pages
-- AWS S3 + CloudFront
-- Any static hosting service
+## Security, Privacy, and Legal
+- This tool is intended for personal use. Respect creators’ rights.
+- Review TikTok’s Terms of Service and applicable local laws before downloading.
+- Avoid commercial usage without permission. Always credit original creators where appropriate.
 
-## Technologies Used
 
-- React 18
-- Axios for HTTP requests
-- CSS3 with animations
-- Responsive design
+## Roadmap
+- Enhanced batch normalization with progress status
+- Offline/download queue improvements
+- Add optional user profile video listing endpoint
 
-## Future Enhancements
 
-- [ ] Batch download multiple videos
-- [ ] Download video with audio only
-- [ ] Support for Instagram Reels
-- [ ] History of downloaded videos
-- [ ] Quality selection (HD/SD)
-- [ ] Dark mode
-- [ ] Download progress indicator
+## Contributing
+PRs and issues are welcome! For larger changes, please open an issue to discuss the approach before submitting a PR.
 
-## Troubleshooting
-
-**Problem:** CORS errors
-- **Solution:** Use a backend proxy or CORS-enabled API
-
-**Problem:** API key not working
-- **Solution:** Verify your API key and subscription status on RapidAPI
-
-**Problem:** Invalid URL error
-- **Solution:** Make sure you're using a valid TikTok share link
 
 ## License
-
-MIT License - feel free to use this project for personal or educational purposes.
-
-## Disclaimer
-
-This tool is provided for educational purposes. Users are responsible for complying with TikTok's Terms of Service and applicable copyright laws.
+MIT — see LICENSE if present. If not, treat this as MIT for personal/educational use.
