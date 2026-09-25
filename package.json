@@ -42,5 +42,6 @@
   "proxy": "http://localhost:5000",
   "devDependencies": {
     "concurrently": "^8.2.2"
-  }
+  },
+  "author": "Ian Gicheha Mbae / Dr-Rank1"
 }
